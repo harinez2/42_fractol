@@ -8,7 +8,8 @@
 # define	WIN1_SX		400
 # define	WIN1_SY		400
 
-# define	DIVERGENCE_LIMIT			2.0
+# define	DIVERGENCE_LIMIT	2.0
+# define	SCROLL_CALC_DIFF	6
 
 # define	NOT_SET			0
 # define	MANDELBROT_SET	1
@@ -43,6 +44,7 @@ typedef struct s_mandelbrot_dataset
 	t_complex	c;
 	t_complex	z0;
 	int			num_of_reprtition;
+	int			scroll_cnt;
 	t_color		color;
 }	t_mandelbrot_dataset;
 

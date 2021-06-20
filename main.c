@@ -11,7 +11,8 @@ static void	init_mandelbrot_dataset(t_mandelbrot_dataset *m)
 	m->ymin = -2.0;
 	m->ymax = 2.0;
 	m->type = NOT_SET;
-	m->num_of_reprtition = 20;
+	m->num_of_reprtition = 25;
+	m->scroll_cnt = 0;
 	m->color.r = 255;
 	m->color.g = 0;
 	m->color.b = 255;

@@ -5,6 +5,7 @@ static int	check_inside_of_mandelbrot_set(t_complex p, t_mandelbrot_dataset *m)
 	t_complex	z;
 	t_complex	c;
 	int			i;
+	int			rep_cnt;
 
 	if (m->type == MANDELBROT_SET)
 	{
@@ -17,12 +18,13 @@ static int	check_inside_of_mandelbrot_set(t_complex p, t_mandelbrot_dataset *m)
 		c = m->c;
 	}
 	i = 0;
-	while (i < m->num_of_reprtition)
+	rep_cnt = m->num_of_reprtition;
+	if (m->scroll_cnt > 0)
+		rep_cnt += m->scroll_cnt * SCROLL_CALC_DIFF;
+	while (i < rep_cnt)
 	{
 		if (fabs(z.x * z.x + z.i * z.i) > DIVERGENCE_LIMIT)
-		{
 			return (i);
-		}
 		z = cp_add(cp_sqrt(z), c);
 		i++;
 	}

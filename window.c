@@ -62,6 +62,7 @@ static int	mouse_win1(int button, int x, int y, t_mandelbrot_dataset *m)
 		m->xmax -= (float)width * (1.0 - (float)x / (float)m->w) * 0.1;
 		m->ymin += (float)height * (float)y / (float)m->h * 0.1;
 		m->ymax -= (float)height * (1.0 - (float)y / (float)m->h) * 0.1;
+		m->scroll_cnt++;
 	}
 	else if (button == MOUSE_SCROOL_DOWN)
 	{
@@ -69,6 +70,7 @@ static int	mouse_win1(int button, int x, int y, t_mandelbrot_dataset *m)
 		m->xmax += (float)width * (1.0 - (float)x / (float)m->w) * 0.1;
 		m->ymin -= (float)height * (float)y / (float)m->h * 0.1;
 		m->ymax += (float)height * (1.0 - (float)y / (float)m->h) * 0.1;
+		m->scroll_cnt--;
 	}
 	draw_mandelbrot_set(m);
 	return (0);
