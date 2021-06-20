@@ -21,14 +21,15 @@ $(MLIBX_DIR):
 $(MLIBX_DIR)/$(MLIBX_NAME): $(MLIBX_DIR)
 	cd "$(PWD)/$(MLIBX_DIR)" && make --no-print-directory
 
-$(NAME): $(MLIBX_DIR)/$(MLIBX_NAME) $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) $(CFLAGS_L) $(MLIBX_DIR)/$(MLIBX_NAME) -o $(NAME)
+$(NAME): $(MLIBX_DIR)/$(MLIBX_NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(CFLAGS_L) $(MLIBX_DIR)/$(MLIBX_NAME) -o $(NAME)
 
 clean:
-	rm -f $(NAME)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -rf $(MLIBX_DIR)
+	rm -f $(NAME)
 
 re: fclean all
 
