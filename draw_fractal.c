@@ -1,5 +1,20 @@
 #include "main.h"
 
+static void	init_formula(t_mandelbrot_dataset *m, t_complex p,
+		t_complex *z, t_complex *c)
+{
+	if (m->type == MANDELBROT_SET)
+	{
+		*z = m->z0;
+		*c = cp_init(p.x, p.i);
+	}
+	else if (m->type == JULIA_SET)
+	{
+		*z = cp_init(p.x, p.i);
+		*c = m->c;
+	}
+}
+
 static int	check_inside_of_mandelbrot_set(t_complex p, t_mandelbrot_dataset *m)
 {
 	t_complex	z;
@@ -7,16 +22,7 @@ static int	check_inside_of_mandelbrot_set(t_complex p, t_mandelbrot_dataset *m)
 	int			i;
 	int			rep_cnt;
 
-	if (m->type == MANDELBROT_SET)
-	{
-		z = m->z0;
-		c = cp_init(p.x, p.i);
-	}
-	else if (m->type == JULIA_SET)
-	{
-		z = cp_init(p.x, p.i);
-		c = m->c;
-	}
+	init_formula(m, p, &z, &c);
 	i = 0;
 	rep_cnt = m->num_of_reprtition;
 	if (m->scroll_cnt > 0)
