@@ -76,6 +76,33 @@ static int	mouse_win1(int button, int x, int y, t_mandelbrot_dataset *m)
 	return (0);
 }
 
+static double	ft_map_minusone_plusone(double x, int froma, int fromb)
+{
+	int		toa;
+	int		tob;
+	double	pos;
+	double	ret;
+
+	toa = -1;
+	tob = 1;
+	pos = (x - (double)froma) / ((double)fromb - (double)froma);
+	ret = pos * ((double)tob - (double)toa) + (double)toa;
+	return (ret);
+}
+
+static int	mouse_move_effect(int x, int y, t_mandelbrot_dataset *m)
+{
+	double	xparam;
+	double	yparam;
+
+	(void)m;
+	xparam = ft_map_minusone_plusone(x, 0, WIN1_SX);
+	yparam = ft_map_minusone_plusone(y, 0, WIN1_SY);
+	m->c = cp_init(xparam, yparam);
+	draw_mandelbrot_set(m);
+	return (0);
+}
+
 static void	close_win(t_mandelbrot_dataset *m)
 {
 	mlx_destroy_image(m->mlx, m->im1);
@@ -107,6 +134,7 @@ void	display_window(t_mandelbrot_dataset *m)
 	draw_mandelbrot_set(m);
 	mlx_key_hook(m->win1, key_win1, m);
 	mlx_mouse_hook(m->win1, mouse_win1, m);
-	mlx_hook(m->win1, 33, 0, (void *)close_win, m);
+	mlx_hook(m->win1, MotionNotify, PointerMotionMask, mouse_move_effect, m);
+	mlx_hook(m->win1, ClientMessage, NoEventMask, (void *)close_win, m);
 	mlx_loop(m->mlx);
 }
