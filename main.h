@@ -32,6 +32,11 @@ typedef struct s_mandelbrot_dataset
 {
 	void		*mlx;
 	void		*win1;
+	void		*im1;
+	char		*data1;
+	int			bits_per_pixel;
+	int			line_len;
+	int			endian;
 	int			type;
 	int			w;
 	int			h;

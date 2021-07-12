@@ -76,8 +76,9 @@ static int	mouse_win1(int button, int x, int y, t_mandelbrot_dataset *m)
 	return (0);
 }
 
-static void	close_win(void)
+static void	close_win(t_mandelbrot_dataset *m)
 {
+	mlx_destroy_image(m->mlx, m->im1);
 	exit(0);
 }
 
@@ -95,9 +96,17 @@ void	display_window(t_mandelbrot_dataset *m)
 		ft_putchars("Error: Failed to init window.\n");
 		exit(-1);
 	}
+	m->im1 = mlx_new_image(m->mlx, m->w, m->h);
+	if (!(m->im1))
+	{
+		ft_putchars("Error: Failed to init image.\n");
+		exit(-1);
+	}
+	m->data1 = mlx_get_data_addr(m->im1,
+			&m->bits_per_pixel, &m->line_len, &m->endian);
 	draw_mandelbrot_set(m);
 	mlx_key_hook(m->win1, key_win1, m);
 	mlx_mouse_hook(m->win1, mouse_win1, m);
-	mlx_hook(m->win1, 33, 0, (void *)close_win, 0);
+	mlx_hook(m->win1, 33, 0, (void *)close_win, m);
 	mlx_loop(m->mlx);
 }

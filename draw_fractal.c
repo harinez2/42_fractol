@@ -43,6 +43,14 @@ static t_color	calc_color(int depth, t_mandelbrot_dataset *m)
 	return (color);
 }
 
+static void	pixel_put_on_buff(t_mandelbrot_dataset *m, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = m->data1 + (y * m->line_len + x * (m->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
 void	draw_mandelbrot_set(t_mandelbrot_dataset *m)
 {
 	int			x;
@@ -53,11 +61,11 @@ void	draw_mandelbrot_set(t_mandelbrot_dataset *m)
 
 	m->dx = (m->xmax - m->xmin) / (double)m->w;
 	m->dy = (m->ymax - m->ymin) / (double)m->h;
-	y = 0;
-	while (y < m->h)
+	y = -1;
+	while (++y < m->h)
 	{
-		x = 0;
-		while (x < m->w)
+		x = -1;
+		while (++x < m->w)
 		{
 			p.x = m->xmin + m->dx * (double)x;
 			p.i = m->ymin + m->dy * (double)y;
@@ -65,9 +73,8 @@ void	draw_mandelbrot_set(t_mandelbrot_dataset *m)
 			ret = check_inside_of_mandelbrot_set(p, m);
 			if (ret != -1)
 				color = calc_color(ret, m);
-			mlx_pixel_put(m->mlx, m->win1, x, y, ft_color(&color));
-			x++;
+			pixel_put_on_buff(m, x, y, ft_color(&color));
 		}
-		y++;
 	}
+	mlx_put_image_to_window(m->mlx, m->win1, m->im1, 0, 0);
 }
