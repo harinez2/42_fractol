@@ -10,6 +10,7 @@ static void	init_mandelbrot_dataset(t_mandelbrot_dataset *m)
 	m->xmax = 2.0;
 	m->ymin = -2.0;
 	m->ymax = 2.0;
+	m->dyndraw = 0;
 	m->type = NOT_SET;
 	m->num_of_reprtition = 25;
 	m->scroll_cnt = 0;
@@ -26,14 +27,17 @@ static void	print_usage_exit(void)
 	ft_putchars("    -m               Draw mandelbrot sets.\n");
 	ft_putchars("    -j               Draw julia sets.\n");
 	ft_putchars("Parameters:\n");
-	ft_putchars("    --c="TX_UNDERLINE"X:Y"TX_DEFAULT_DECO);
-	ft_putchars("          Initial value of C (Only used for Julia set).\n");
 	ft_putchars("    --rep="TX_UNDERLINE"TIMES"TX_DEFAULT_DECO);
 	ft_putchars("      The number of repetition to calculate.\n");
 	ft_putchars("    --color="TX_UNDERLINE"COLOR"TX_DEFAULT_DECO);
 	ft_putchars("    Color. Specify rgb range in hexadecimal.\n");
 	ft_putchars("                       ");
 	ft_putchars("ex) --color=FF00FF represents purple.\n");
+	ft_putchars("Parameters(for julia set):\n");
+	ft_putchars("    --c="TX_UNDERLINE"X:Y"TX_DEFAULT_DECO);
+	ft_putchars("          Initial value of C.\n");
+	ft_putchars("    --dd             ");
+	ft_putchars("Changing initial parameters based on mouse position.\n");
 	ft_putchars("Tips:\n");
 	ft_putchars("  - Press ESC or x button on the window to exit.\n");
 	ft_putchars("  - Press C to shift the color range.\n");
@@ -73,7 +77,9 @@ static void	read_parameters(char *param, t_mandelbrot_dataset *m)
 	int		j;
 
 	readi = 0;
-	if (ft_strncmp(param, "--rep=", 6) == 0)
+	if (ft_strncmp(param, "--dd", 5) == 0)
+		m->dyndraw = 1;
+	else if (ft_strncmp(param, "--rep=", 6) == 0)
 	{
 		j = 6;
 		while (param[j] >= '0' && param[j] <= '9')

@@ -22,7 +22,9 @@ void	display_window(t_mandelbrot_dataset *m)
 	draw_mandelbrot_set(m);
 	mlx_key_hook(m->win1, key_win1, m);
 	mlx_mouse_hook(m->win1, mouse_win1, m);
-	mlx_hook(m->win1, MotionNotify, PointerMotionMask, mouse_move_effect, m);
+	if (m->dyndraw)
+		mlx_hook(m->win1,
+			MotionNotify, PointerMotionMask, mouse_move_effect, m);
 	mlx_hook(m->win1, ClientMessage, NoEventMask, (void *)close_win, m);
 	mlx_loop(m->mlx);
 }

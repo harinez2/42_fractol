@@ -37,6 +37,7 @@ typedef struct s_mandelbrot_dataset
 	int			bits_per_pixel;
 	int			line_len;
 	int			endian;
+	int			dyndraw;
 	int			type;
 	int			w;
 	int			h;
