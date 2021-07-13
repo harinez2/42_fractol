@@ -71,6 +71,11 @@ typedef struct s_mandelbrot_dataset
 # define TX_UNDERLINE		"\x1b[4m"
 # define TX_DEFAULT_DECO	"\x1b[0m"
 
+// error code
+# define ERR_INIT_MLX_FAILED	-1
+# define ERR_INIT_WINDOW_FAILED	-2
+# define ERR_INIT_IMAGE_FAILED	-3
+
 t_complex	cp_init(float x, float i);
 t_complex	cp_add(t_complex c1, t_complex c2);
 t_complex	cp_sqrt(t_complex c);
@@ -88,6 +93,12 @@ int			ft_hextoi(char *s, int *num);
 
 void		draw_mandelbrot_set(t_mandelbrot_dataset *m);
 
+int			key_win1(int key, t_mandelbrot_dataset *m);
+int			mouse_win1(int button, int x, int y, t_mandelbrot_dataset *m);
+int			mouse_move_effect(int x, int y, t_mandelbrot_dataset *m);
+
 void		display_window(t_mandelbrot_dataset *m);
+
+void		error_exit(int errcode);
 
 #endif

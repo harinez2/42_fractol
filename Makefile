@@ -6,7 +6,9 @@ SRCS		= main.c \
 				complex_op.c \
 				color.c \
 				libft.c \
+				error.c \
 				draw_fractal.c \
+				window_kbms.c \
 				window.c
 OBJS		= $(SRCS:.c=.o)
 CC			= gcc
