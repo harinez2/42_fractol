@@ -33,11 +33,11 @@ static void	print_usage_exit(void)
 	ft_putchars("    Color. Specify rgb range in hexadecimal.\n");
 	ft_putchars("                       ");
 	ft_putchars("ex) --color=FF00FF represents purple.\n");
-	ft_putchars("Parameters(for julia set):\n");
+	ft_putchars("Parameters (only for julia set):\n");
 	ft_putchars("    --c="TX_UNDERLINE"X:Y"TX_DEFAULT_DECO);
 	ft_putchars("          Initial value of C.\n");
 	ft_putchars("    --dd             ");
-	ft_putchars("Changing initial parameters based on mouse position.\n");
+	ft_putchars("Change the initial parameters based on the mouse position.\n");
 	ft_putchars("Tips:\n");
 	ft_putchars("  - Press ESC or x button on the window to exit.\n");
 	ft_putchars("  - Press C to shift the color range.\n");
